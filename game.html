@@ -191,6 +191,11 @@
             width: 50px;
             height: 50px;
             z-index: 1000;
+            text-align: center;
+            line-height: 50px;
+            font-size: 24px;
+            font-weight: bold;
+            user-select: none;
         }
 
         #up { bottom: 100px; left: 50%; transform: translateX(-50%); }
@@ -282,20 +287,38 @@
     <script>
         // Add event listeners for touch controls
         document.getElementById('up').addEventListener('touchstart', function() {
-            simulateKeyPress(38); // Up arrow key code
+            simulateKeyPress('ArrowUp'); // Up arrow key code
         });
         document.getElementById('down').addEventListener('touchstart', function() {
-            simulateKeyPress(40); // Down arrow key code
+            simulateKeyPress('ArrowDown'); // Down arrow key code
         });
         document.getElementById('left').addEventListener('touchstart', function() {
-            simulateKeyPress(37); // Left arrow key code
+            simulateKeyPress('ArrowLeft'); // Left arrow key code
         });
         document.getElementById('right').addEventListener('touchstart', function() {
-            simulateKeyPress(39); // Right arrow key code
+            simulateKeyPress('ArrowRight'); // Right arrow key code
         });
 
-        function simulateKeyPress(keyCode) {
-            var event = new KeyboardEvent('keydown', { keyCode: keyCode, which: keyCode });
+        document.getElementById('up').addEventListener('touchend', function() {
+            simulateKeyRelease('ArrowUp'); // Up arrow key code
+        });
+        document.getElementById('down').addEventListener('touchend', function() {
+            simulateKeyRelease('ArrowDown'); // Down arrow key code
+        });
+        document.getElementById('left').addEventListener('touchend', function() {
+            simulateKeyRelease('ArrowLeft'); // Left arrow key code
+        });
+        document.getElementById('right').addEventListener('touchend', function() {
+            simulateKeyRelease('ArrowRight'); // Right arrow key code
+        });
+
+        function simulateKeyPress(key) {
+            var event = new KeyboardEvent('keydown', { key: key });
+            document.dispatchEvent(event);
+        }
+
+        function simulateKeyRelease(key) {
+            var event = new KeyboardEvent('keyup', { key: key });
             document.dispatchEvent(event);
         }
     </script>
