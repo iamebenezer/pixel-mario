@@ -183,6 +183,20 @@
                 top: 0.5em;
             }
         }
+
+        .control-button {
+            position: fixed;
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            z-index: 1000;
+        }
+
+        #up { bottom: 100px; left: 50%; transform: translateX(-50%); }
+        #down { bottom: 20px; left: 50%; transform: translateX(-50%); }
+        #left { bottom: 60px; left: calc(50% - 60px); }
+        #right { bottom: 60px; left: calc(50% + 60px); }
     </style>
     <script type="text/javascript" src="gameengine.js"></script>
 </head>
@@ -258,5 +272,32 @@
     <audio id="audio_overworld">
         <source src="overworld.mp3" type="audio/mp3">
     </audio>
+
+    <!-- Mobile Controls -->
+    <div id="up" class="control-button">▲</div>
+    <div id="down" class="control-button">▼</div>
+    <div id="left" class="control-button">◀</div>
+    <div id="right" class="control-button">▶</div>
+
+    <script>
+        // Add event listeners for touch controls
+        document.getElementById('up').addEventListener('touchstart', function() {
+            simulateKeyPress(38); // Up arrow key code
+        });
+        document.getElementById('down').addEventListener('touchstart', function() {
+            simulateKeyPress(40); // Down arrow key code
+        });
+        document.getElementById('left').addEventListener('touchstart', function() {
+            simulateKeyPress(37); // Left arrow key code
+        });
+        document.getElementById('right').addEventListener('touchstart', function() {
+            simulateKeyPress(39); // Right arrow key code
+        });
+
+        function simulateKeyPress(keyCode) {
+            var event = new KeyboardEvent('keydown', { keyCode: keyCode, which: keyCode });
+            document.dispatchEvent(event);
+        }
+    </script>
 </body>
 </html>
